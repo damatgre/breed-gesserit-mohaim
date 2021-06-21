@@ -1,6 +1,7 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -9,32 +10,71 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-
+const Employee = require("./lib/Employee");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-function basicInfo() {
-    inquirer.prompt([
+let teamMembers = [];
+let addManager = true;
+
+//keep questions as variable to call and manipulate based on role later
+const questions = {
+    //manager questions
+    Manager: [
         {
-            type: "input",
+            type: 'input',
             name: 'name',
-            message: 'What is your name?'
+            message: "What is the manager's name?",
+            validate: (value) => {
+                if (value) {
+                    return true;
+                } else { return "You must enter a name for the manager."}
+            },
         },
+
         {
             type: 'input',
             name: 'id',
-            message: 'What is your ID?'
+            message: "What is the manager's ID?",
+            validate: (value) => {
+                if (value) {
+                    return true;
+                } else { return "You must enter an ID for the manager."}
+            },
         },
+
         {
             type: 'input',
             name: 'email',
-            message: 'Please enter your email.'
+            message: "What is the manager's email?",
+            validate: (value) => {
+                if (value) {
+                    return true;
+                } else { return "You must enter an email for the manager."}
+            },
         },
+
         {
-            type: 'list'
-        }
-    ])
+            type: 'input',
+            name: 'officeNumber',
+            message: "What is the manager's office number?",
+            validate: (value) => {
+                if (value) {
+                    return true;
+                } else { return "You must enter an office number for the manager."}
+            },
+        },
+
+        {
+            type: 'list',
+            name: 'addTeam',
+            message: "Would you like to add another employee?",
+            choices: ["yes", "no"]
+        },
+    ],
+
+    
 }
 
 // After the user has input all employees desired, call the `render` function (required
@@ -56,3 +96,4 @@ function basicInfo() {
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+basicInfo();
