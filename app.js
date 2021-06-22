@@ -6,12 +6,12 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
+//changed directory name to templates because that is whwer main.html lives
+const OUTPUT_DIR = path.resolve(__dirname, "templates");
 const outputPath = path.join(OUTPUT_DIR, "main.html");
 
 const render = require("./lib/htmlRenderer");
 const Employee = require("./lib/Employee");
-const { generateKeyPair } = require("crypto");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -196,14 +196,17 @@ const memberSelect = [
     }
 ];
 
+//main function to put together team
 function addMember() {
     inquirer.prompt(memberSelect)
         .then(answer => {
+            // console.log(answer.memberType);
+
             if (answer.memberSelect === "Manager") {
                 if (addManager) {
                     inquirer.prompt(questions.Manager)
                         .then(answer => {
-                            //save manager info to be used
+                            //save employee info
                             const manager = new Manager
                                 (
                                     answer.name,
@@ -211,25 +214,27 @@ function addMember() {
                                     answer.email,
                                     answer.officeNumber
                                 );
-                            //add info to empty teamMember array
-                            //console.log(manager)
+
+                            //add info to team array if manager doesn't exist
                             teamMembers.push(manager);
                             addManager = false;
-                            if (answer.addMember === "yes") {
+                            if (answer.addTeam === "yes") {
                                 addMember();
                             } else {
                                 generateDoc();
                             }
                         });
-
                 } else {
-                    console.log("You've already entered a manager")
+                    //only 1 manager
+                    console.log("There is a manager already!")
                     addMember();
                 }
+
+
             } else if (answer.memberSelect === "Engineer") {
                 inquirer.prompt(questions.Engineer)
                     .then(answer => {
-                        //pass new info object
+                        //save ee info
                         const engineer = new Engineer
                             (
                                 answer.name,
@@ -237,27 +242,29 @@ function addMember() {
                                 answer.email,
                                 answer.github
                             );
+                        //add info to team array
                         teamMembers.push(engineer);
-                        if (answer.addMember === "yes") {
+                        if (answer.addTeam === "yes") {
                             addMember();
                         } else {
                             generateDoc();
                         };
                     });
-            } else if (answer.addMember === "Intern") {
-                inquirer.prompt(question.Intern)
+
+            } else if (answer.memberSelect === "Intern") {
+                inquirer.prompt(questions.Intern)
                     .then(answer => {
-                        //pass new info to intern object
+                        //save ee info
                         const intern = new Intern
                             (
                                 answer.name,
                                 answer.id,
                                 answer.email,
                                 answer.school
-                            )
-                        //add info to array
+                            );
+                        //add info to team array
                         teamMembers.push(intern);
-                        if (answer.addMember === "yes") {
+                        if (answer.addTeam === "yes") {
                             addMember();
                         } else {
                             generateDoc();
@@ -266,6 +273,7 @@ function addMember() {
             };
         });
 };
+
 
 addMember();
 
