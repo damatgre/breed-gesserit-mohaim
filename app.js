@@ -7,7 +7,7 @@ const path = require("path");
 const fs = require("fs");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
+const outputPath = path.join(OUTPUT_DIR, "main.html");
 
 const render = require("./lib/htmlRenderer");
 const Employee = require("./lib/Employee");
@@ -221,14 +221,51 @@ function addMember() {
                                 generateDoc();
                             }
                         });
-                
+
                 } else {
                     console.log("You've already entered a manager")
                     addMember();
                 }
-            }
-        })
-}
+            } else if (answer.memberSelect === "Engineer") {
+                inquirer.prompt(questions.Engineer)
+                    .then(answer => {
+                        //pass new info object
+                        const engineer = new Engineer
+                            (
+                                answer.name,
+                                answer.id,
+                                answer.email,
+                                answer.github
+                            );
+                        teamMembers.push(engineer);
+                        if (answer.addMember === "yes") {
+                            addMember();
+                        } else {
+                            generateDoc();
+                        };
+                    });
+            } else if (answer.addMember === "Intern") {
+                inquirer.prompt(question.Intern)
+                    .then(answer => {
+                        //pass new info to intern object
+                        const intern = new Intern
+                            (
+                                answer.name,
+                                answer.id,
+                                answer.email,
+                                answer.school
+                            )
+                        //add info to array
+                        teamMembers.push(intern);
+                        if (answer.addMember === "yes") {
+                            addMember();
+                        } else {
+                            generateDoc();
+                        };
+                    });
+            };
+        });
+};
 
 addMember();
 
