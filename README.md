@@ -19,6 +19,9 @@ Answer prompts to fill out information for Manager, Engineer(s), and Intern(s).
 
 ![Screenshot of Team Builder](./assets/team-screenshot.png)
 
+https://user-images.githubusercontent.com/79426119/123560429-09767800-d770-11eb-8f75-a4865527a85d.mp4
+
+
 
 ## Technology Used
 
