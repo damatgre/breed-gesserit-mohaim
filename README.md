@@ -17,7 +17,7 @@ Answer prompts to fill out information for Manager, Engineer(s), and Intern(s).
 
 ## Screenshot and Video
 
-![Screenshot of Team Builder](team-screenshot.png)
+![Screenshot of Team Builder](./assets/team-screenshot.png)
 
 
 ## Technology Used
