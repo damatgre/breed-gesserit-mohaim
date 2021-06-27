@@ -1,6 +1,7 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const Employee = require("./lib/Employee");
 
 const inquirer = require("inquirer");
 const path = require("path");
@@ -11,7 +12,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "templates");
 const outputPath = path.join(OUTPUT_DIR, "main.html");
 
 const render = require("./lib/htmlRenderer");
-const Employee = require("./lib/Employee");
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -276,6 +277,7 @@ function addMember() {
 
 
 addMember();
+console.log(teamMembers);
 
 function generateDoc() {
     fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
