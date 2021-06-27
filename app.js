@@ -277,7 +277,6 @@ function addMember() {
 
 
 addMember();
-console.log(teamMembers);
 
 function generateDoc() {
     fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
